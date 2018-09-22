@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
+
+Route::resource('idiomas', 'IdiomasController');
+
+//Route::get('/idiomas', 'IdiomaController@index');
+//Route::get('/idiomas/edit/{id}', 'IdiomaController@edit');
+//
+//Route::post('idiomas/store', 'IdiomaController@store');
+//Route::post('idiomas/update/{id}', 'IdiomaController@update');
