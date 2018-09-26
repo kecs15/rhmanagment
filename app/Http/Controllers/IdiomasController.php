@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use http\Exception;
 use Illuminate\Http\Request;
 use App\Idioma;
 
@@ -36,6 +37,12 @@ class IdiomasController extends Controller
     public function store(Request $request)
     {
         $idioma = new Idioma();
+        $nombreIdioma = $idioma->where('nombre', $request->nombre)->value('nombre');
+
+        if($nombreIdioma != null) {
+            return response()->json(['status' => 'error', 'message' => 'Este idioma ya existe']);
+        }
+
         $idioma->nombre = $request->nombre;
         $idioma->save();
     }
@@ -74,12 +81,14 @@ class IdiomasController extends Controller
     public function update(Request $request, $id)
     {
         $idioma = new Idioma();
-        $idioma->find($id);
+        $idiomaGuardado = $idioma->where('nombre', $request->nombre)
+                                 ->where('id', '<>', $id)->first();
+
+        if(!empty($idiomaGuardado)) {
+            return response()->json(['status' => 'error', 'message' => 'Este idioma ya existe.']);
+        }
         $idioma->find($id)->update(['nombre' => $request->nombre, 'estado' => $request->estado]);
-        return view('idioma.index')->with(['idiomas' => $idioma->all()]);
-//        $idioma->nombre = $request->nombre;
-//        $idioma->estado = $request->estado;
-//        $idioma->save();
+        $idiomas = new Idioma();
     }
 
     /**

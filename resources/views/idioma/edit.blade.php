@@ -1,5 +1,8 @@
 @extends('layouts.default')
 @section('contenido')
+    <div class="alert alert-danger" role="alert" style="display: none">
+        <span id="message"></span>
+    </div>
     <div class="row">
         <div class="col-lg-6">
             @isset($idiomas)
@@ -49,9 +52,9 @@
                     <h4 class="card-title">Editar idioma</h4>
                     <form id="editarIdioma">
                         <input id="idiomaID" hidden value="{{$idioma->id}}" name="idiomaID">
-                        <div class="form-group">
+                        <div class="form-group" id="divDanger">
                             <label for="nombre">Nombre idioma</label>
-                            <input type="text" class="form-control" name="nombre" placeholder="Nombre idioma" value="{{$idioma->nombre}}">
+                            <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre idioma" value="{{$idioma->nombre}}">
                         </div>
                         <div class="form-group">
                             <label for="estado">Estado</label>
@@ -74,10 +77,4 @@
 @endsection
 @section('custom_js')
     <script src="/../assets/js/idiomas.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        //        function editarIdioma(target){
-        //            window.location.href = 'http://localhost:8000/idiomas/edit/'+target.id;
-        //
-        //        }
-    </script>
 @endsection

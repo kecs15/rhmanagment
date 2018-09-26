@@ -1,5 +1,8 @@
 @extends('layouts.default')
 @section('contenido')
+    <div class="alert alert-danger" role="alert" style="display: none">
+        <span id="message"></span>
+    </div>
     <div class="row">
         <div class="col-lg-6">
             @isset($idiomas)
@@ -47,9 +50,8 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Nuevo idioma</h4>
-                    <form id="idioma">
-                        {{ csrf_field() }}
-                        <div class="form-group">
+                    <form id="idiomaNuevo">
+                        <div class="form-group" id="divDanger">
                             <label for="nombre">Nombre idioma</label>
                             <input type="text" class="form-control" id="nombre" placeholder="Nombre idioma" name="nombre">
                         </div>
