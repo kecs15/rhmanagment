@@ -5,12 +5,12 @@
       Tip 2: you can also add an image using data-image tag
   -->
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-            CT
+        <a href="/" class="simple-text logo-mini">
+            HR
         </a>
 
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-            Creative Tim
+        <a href="/" class="simple-text logo-normal">
+            Management
         </a>
     </div>
 
@@ -28,7 +28,12 @@
                     <p>Idiomas</p>
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link active" href="/competencia" id="competenciaslink">
+                    <i class="tim-icons icon-caps-small"></i>
+                    <p>Competencias</p>
+                </a>
+            </li>
             <!-- your sidebar here -->
         </ul>
     </div>

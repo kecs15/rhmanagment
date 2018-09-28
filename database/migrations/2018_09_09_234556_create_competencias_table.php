@@ -15,6 +15,8 @@ class CreateCompetenciasTable extends Migration
     {
         Schema::create('competencias', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('descripcion');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

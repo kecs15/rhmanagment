@@ -54,12 +54,12 @@
               Tip 2: you can also add an image using data-image tag
           -->
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-                    CT
+                <a href="/" class="simple-text logo-mini">
+                    HR
                 </a>
 
-                <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                    Creative Tim
+                <a href="/" class="simple-text logo-normal">
+                    Managment
                 </a>
             </div>
 
@@ -75,6 +75,12 @@
                         <a class="nav-link" href="/idiomas" id="idiomaslink">
                             <i class="tim-icons icon-caps-small"></i>
                             <p>Idiomas</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/competencias" id="competenciaslink">
+                            <i class="tim-icons icon-caps-small"></i>
+                            <p>Competencias</p>
                         </a>
                     </li>
 

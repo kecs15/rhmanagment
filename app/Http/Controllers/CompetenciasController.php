@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use http\Exception;
 use Illuminate\Http\Request;
-use App\Idioma;
-
-class IdiomasController extends Controller
+use App\Competencia;
+class CompetenciasController extends Controller
 {
-    private $responseError = ['status' => 'error', 'message' => 'Este idioma ya existe'];
+    private $responseError = ['status' => 'error', 'message' => 'Esta competencia ya existe.'];
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Idioma $idiomas)
+    public function index(Competencia $competencia)
     {
-        return view('idioma.index')->with(['idiomas' => $idiomas->all()]);
+        return view('competencia.index')->with(['competencias' => $competencia->all()]);
     }
 
     /**
@@ -35,17 +33,16 @@ class IdiomasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Competencia $competencia)
     {
-        $idioma = new Idioma();
-        $idiomaEncontrado = $idioma->where('nombre', $request->nombre)->value('nombre');
+      $competenciaEncontrada = $competencia->where('descripcion', $request->descripcion)->first();
 
-        if(isset($idiomaEncontrado)) {
-            return response()->json($this->responseError);
-        }
+      if(isset($competenciaEncontrada)) {
+          return response()->json($this->responseError);
+      }
 
-        $idioma->nombre = $request->nombre;
-        $idioma->save();
+      $competencia->descripcion = $request->descripcion;
+      $competencia->save();
     }
 
     /**
@@ -67,9 +64,10 @@ class IdiomasController extends Controller
      */
     public function edit($id)
     {
-        $idioma = new Idioma();
-        $idiomas = $idioma;
-        return view('idioma.edit')->with(['idiomas' => $idiomas->all(), 'idioma' => $idioma->find($id)]);
+        $competencia = new Competencia();
+        $competencias = $competencia;
+        return view('competencia.edit')->with(['competencia' => $competencia->find($id),
+                                               'competencias' => $competencias->all()]);
     }
 
     /**
@@ -81,14 +79,15 @@ class IdiomasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $idioma = new Idioma();
-        $idiomaEncontrado= $idioma->where('nombre', $request->nombre)
-                                  ->where('id', '<>', $id)->first();
+        $competencia = new Competencia();
+        $competenciaEncontrada = $competencia->where('descripcion', $request->descripcion)
+                                             ->where('id', '<>', $id)->first();
 
-        if(isset($idiomaEncontrado)) {
+        if(isset($competenciaEncontrada)) {
             return response()->json($this->responseError);
         }
-        $idioma->find($id)->update(['nombre' => $request->nombre, 'estado' => $request->estado]);
+        
+        $competencia->find($id)->update(['descripcion' => $request->descripcion, 'estado' => $request->estado]);
     }
 
     /**
