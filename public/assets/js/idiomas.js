@@ -5,7 +5,6 @@
 function validarIdioma() {
     var nombre = $('#nombre').val().trim();
     if(nombre == null || nombre == '') {
-        console.log(message);
         $('#nombre').addClass('form-control-danger');
         $('#divDanger').addClass('has-danger');
         $('.alert').show();
