@@ -15,6 +15,9 @@ class CreateCandidatosTable extends Migration
     {
         Schema::create('candidatos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
+            $table->string('cedula');
+            $table->double('salario_aspira',8, 2);
             $table->timestamps();
         });
     }

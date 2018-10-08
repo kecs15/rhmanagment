@@ -8,7 +8,7 @@ class Departamento extends Model
 {
     protected $fillable = ['nombre', 'estado'];
 
-        /**
+    /**
      * Get the comments for the blog post.
      */
     public function puestos()

@@ -10,15 +10,15 @@ function validarCompetencia() {
         $('#message').text('La descripcion no puede estar vacia.');
         return false;
     }
-    return true;
+    return descripcion;
 }
 
 $("#competenciaNuevo").submit(function(event){
     event.preventDefault();
-    
+
     if(!validarCompetencia()) return;
 
-    var posting = $.post( '/competencias', { descripcion: descripcion } );
+    var posting = $.post( '/competencias', { descripcion: validarCompetencia() } );
     //
 
     posting.done(function( data ) {

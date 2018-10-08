@@ -21,11 +21,12 @@
 <div class="wrapper ">
 
     <div class="main-panel">
+        {{--@if(Auth::user() != null && Auth::user()->role == 'admin')--}}
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " data-color="blue">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
 
-                    <a class="navbar-brand" href="#pablo">sdfsdfds</a>
+                    {{--<a class="navbar-brand" href="#pablo">sdfsdfds</a>--}}
                 </div>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +48,7 @@
                 </div>
             </div>
         </nav>
+        
         <div class="sidebar" data-color="blue" data-background-color="white">
             <!--
               Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -83,11 +85,18 @@
                             <p>Competencias</p>
                         </a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/puestos" id="puestoslink">
+                            <i class="tim-icons icon-paper"></i>
+                            <p>Puestos</p>
+                        </a>
+                    </li>
 
                     <!-- your sidebar here -->
                 </ul>
             </div>
         </div>
+        {{--@endif--}}
         <div class="content">
             <div class="container-fluid">
                 <!-- your content here -->

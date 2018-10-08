@@ -11,14 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
+Route::resource('candidatos', 'CandidatosController')->except([
+    'create'
+]);
+Route::get('/candidatos/{puestoID}/create', 'CandidatosController@create');
 Route::resource('idiomas', 'IdiomasController');
+Route::resource('competencias', 'CompetenciasController');
+Route::resource('departamentos', 'DepartamentosController');
+Route::resource('puestos', 'PuestosController');
+Route::get('/', 'PuestosController@puestosDisponibles');
 
 //Route::get('/idiomas', 'IdiomaController@index');
 //Route::get('/idiomas/edit/{id}', 'IdiomaController@edit');
 //
 //Route::post('idiomas/store', 'IdiomaController@store');
 //Route::post('idiomas/update/{id}', 'IdiomaController@update');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
