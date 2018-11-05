@@ -17,6 +17,7 @@ class IdiomasController extends Controller
     public function index(Idioma $idiomas)
     {
         return view('idioma.index')->with(['idiomas' => $idiomas->all()]);
+
     }
 
     /**
