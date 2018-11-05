@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCandidatosTable extends Migration
+class CreateEmpleadosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateCandidatosTable extends Migration
      */
     public function up()
     {
-        Schema::create('candidatos', function (Blueprint $table) {
+        Schema::create('empleados', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
             $table->string('cedula');
-            $table->string('estado')->default('Pendiente');
-            $table->double('salario_aspira',8, 2);
+            $table->double('salario', 8, 2);
             $table->unsignedInteger('puesto_id');
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ class CreateCandidatosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('candidatos');
+        Schema::dropIfExists('empleados');
     }
 }

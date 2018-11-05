@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Candidato;
 use App\Competencia;
 use App\Idioma;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Puesto;
 
@@ -15,9 +16,9 @@ class CandidatosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Candidato $candidato)
     {
-        //
+        return view('candidato.index')->with(['candidatos' => $candidato->all()]);
     }
 
     /**
@@ -46,6 +47,7 @@ class CandidatosController extends Controller
         $candidato->nombre = $request->nombreCandidato;
         $candidato->cedula = $request->cedula;
         $candidato->salario_aspira = $request->salarioAspira;
+        $candidato->puesto_id = $request->puesto_id;
         $candidato->save();
 
         foreach($request->idiomas as $k => $idioma)
@@ -63,7 +65,41 @@ class CandidatosController extends Controller
                 $candidato->competencias()->attach($competencia);
             }
         }
-        var_dump($request->competencias);
+
+        foreach ($request->capacitacionDescripciones as $k => $v)
+        {
+//                var_dump($request->capacitacionDescripciones[$k]);
+            if($request->capaciotancionDescripciones[$k] != null
+                || $request->capacitacionInstituciones[$k] != null
+                || $request->capacitacionNiveles[$k] != null)
+            {
+                $candidato->capacitaciones()->create([
+                    'descripcion' => $request->capacitacionDescripciones[$k],
+                    'institucion' => $request->capacitacionInstituciones[$k],
+                    'nivel' => $request->capacitacionNiveles[$k],
+                    'desde' => $request->capacitacionFechasDesde[$k],
+                    'hasta' => $request->capacitacionFechasHasta[$k]
+                ]);
+            }
+        }
+
+        foreach ($request->nombreEmpresas as $k => $v)
+        {
+            if($request->nombreEmpresas[$k] != null
+                || $request->posiciones[$k] !=null
+                || $request->experienciaSalarios[$k] != null)
+            {
+                $candidato->experiencias()->create([
+                    'empresa' => $request->nombreEmpresas[$k],
+                    'puesto'  => $request->posiciones[$k],
+                    'salario' => $request->experienciaSalarios[$k],
+                    'desde' => $request->experienciaFechasDesde[$k],
+                    'hasta' => $request->experienciaFechasHasta[$k]
+                ]);
+            }
+        }
+
+        return response()->json(['status' => 'success']);
     }
 
     /**
@@ -74,7 +110,9 @@ class CandidatosController extends Controller
      */
     public function show($id)
     {
-        //
+        $candidato = Candidato::find($id);
+        //var_dump($candidato->idiomas[0]->nombre);die;
+        return view('candidato.show')->with(['candidato' => $candidato]);
     }
 
     /**

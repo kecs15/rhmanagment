@@ -18,4 +18,9 @@ class Puesto extends Model
     {
         return $this->belongsTo('App\Departamento');
     }
+
+    public function candidatos()
+    {
+        return $this->hasMany('App\Candidato');
+    }
 }

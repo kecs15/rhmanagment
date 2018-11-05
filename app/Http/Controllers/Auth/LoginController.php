@@ -41,6 +41,6 @@ class LoginController extends Controller
     {
         if($user->role == 'admin') return redirect()->intended('/idiomas');
 
-        return redirect()->intended('/competencias');
+        return redirect()->intended('/dashboard');
     }
 }

@@ -18,10 +18,9 @@ class CreateCapacitacionesTable extends Migration
             $table->string('descripcion');
             $table->string('institucion');
             $table->string('nivel');
-            $table->date('desde');
-            $table->date('hasta');
+            $table->date('desde')->nullable();
+            $table->date('hasta')->nullable();
             $table->unsignedInteger('candidato_id');
-            $table->foreign('candidato_id')->references('id')->on('candidatos');
             $table->timestamps();
         });
     }

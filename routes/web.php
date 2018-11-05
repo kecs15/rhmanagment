@@ -11,18 +11,19 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::middleware(['auth'])->group(function () {
+    Route::resource('idiomas', 'IdiomasController');
+    Route::resource('competencias', 'CompetenciasController');
+    Route::resource('departamentos', 'DepartamentosController');
+    Route::resource('puestos', 'PuestosController');
+    Route::get('/dashboard', 'CandidatosController@index');
+});
 
 Route::resource('candidatos', 'CandidatosController')->except([
     'create'
 ]);
 Route::get('/candidatos/{puestoID}/create', 'CandidatosController@create');
-Route::resource('idiomas', 'IdiomasController');
-Route::resource('competencias', 'CompetenciasController');
-Route::resource('departamentos', 'DepartamentosController');
-Route::resource('puestos', 'PuestosController');
+
 Route::get('/', 'PuestosController@puestosDisponibles');
 
 //Route::get('/idiomas', 'IdiomaController@index');
@@ -31,5 +32,6 @@ Route::get('/', 'PuestosController@puestosDisponibles');
 //Route::post('idiomas/store', 'IdiomaController@store');
 //Route::post('idiomas/update/{id}', 'IdiomaController@update');
 Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');

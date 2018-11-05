@@ -18,8 +18,8 @@ class CreateExperienciasTable extends Migration
             $table->string('empresa');
             $table->string('puesto');
             $table->double('salario', 8, 2);
-            $table->date('desde');
-            $table->date('hasta');
+            $table->date('desde')->nullable();
+            $table->date('hasta')->nullable();
             $table->unsignedInteger('candidato_id');
             $table->foreign('candidato_id')->references('id')->on('candidatos');
             $table->timestamps();

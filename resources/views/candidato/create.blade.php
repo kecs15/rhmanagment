@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('contenido')
-    <div class="alert alert-danger" role="alert" style="display: none">
+    <div class="alert alert-danger" id="alert" role="alert" style="display: none">
         <span id="message"></span>
     </div>
     <div class="container">
@@ -9,6 +9,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Aplicando para {{$puesto->nombre}}</h4>
                         <form id="candidato">
+                            <input type="hidden" name="puesto_id" value="{{$puesto->id}}">
                             <div class="form-group" id="divDangerNombre">
                                 <label for="nombre">Nombre completo</label>
                                 <input type="text" class="form-control" id="nombre" placeholder="Nombre completo" name="nombreCandidato">
@@ -60,7 +61,7 @@
                             </div>
                             <div class="form-group form-control" id="capacitaciones">
                                 <h5 class="card-title">Capacitaciones</h5>
-                                <button class="btn btn-info animation-on-hover" id="agregarCapacitacion">Agregar</button>
+                                <button type="button" class="btn btn-info animation-on-hover" id="agregarCapacitacion">Agregar</button>
                                 <div id="capacitacion" class="form-control">
                                     <div class="row">
                                         <div class="col">
@@ -72,18 +73,18 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="nivel">Nivel</label>
-                                                <input type="text" class="form-control" name="capacitacionesNiveles[]" placeholder="Nivel de la capacitacion">
+                                                <input type="text" class="form-control" name="capacitacionNiveles[]" placeholder="Nivel de la capacitacion">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">
                                             <label for="desde">Desde</label>
-                                            <input type="date" class="form-control" name="capacitacionFechasDesde[]">
+                                            <input type="date" class="form-control fecha-desde" name="capacitacionFechasDesde[]">
                                         </div>
                                         <div class="col">
                                             <label for="hasta">Hasta</label>
-                                            <input type="date" class="form-control" name="capaciacionFechasHasta[]">
+                                            <input type="date" class="form-control fecha-hasta" name="capaciacionFechasHasta[]">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -94,8 +95,8 @@
                             </div>
                             <div class="form-group form-control" id="experienciasLaborales">
                                 <h5 class="card-title">Experiencia Laboral</h5>
-                                <button class="btn btn-info animation-on-hover" id="agregarExperiencia">Agregar</button>
-                                <div id="experienciaLaboral">
+                                <button type="button" class="btn btn-info animation-on-hover" id="agregarExperiencia">Agregar Experiencia</button>
+                                <div id="experienciaLaboral" class="form-control">
                                     <div class="form-group" id="divDangerEmpresa">
                                         <label for="nombreEmpresa">Empresa</label>
                                         <input type="text" class="form-control" id="nombreEmpresa1" name="nombreEmpresas[]" placeholder="Nombre de la empresa">

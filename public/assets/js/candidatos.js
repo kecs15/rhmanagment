@@ -1,31 +1,31 @@
-// function validarPuesto() {
-//     var nombre = $('#nombre').val().trim();
-//     var salarioMin = $('#salarioMin').val().trim();
-//     var salarioMax = $('#salarioMax').val().trim();
-//
-//     if(nombre == null || nombre == '') {
-//         $('#nombre').addClass('form-control-danger');
-//         $('#divDanger').addClass('has-danger');
-//         $('.alert').show();
-//         $('#message').text('El puesto no puede estar vacio.');
-//         return false;
-//     }
-//     if(salarioMin == null || salarioMin == '' || salarioMin == NaN || salarioMin <= 0) {
-//         $('#salarioMin').addClass('form-control-danger');
-//         $('#divDangerSalarioMin').addClass('has-danger');
-//         $('.alert').show();
-//         $('#message').text('Salario minimo incorrecto.');
-//         return false;
-//     }
-//     if(salarioMax == null || salarioMax == '' || salarioMax == NaN || salarioMax <= salarioMin) {
-//         $('#salarioMax').addClass('form-control-danger');
-//         $('#divDangerSalarioMax').addClass('has-danger');
-//         $('.alert').show();
-//         $('#message').text('Salario maximo incorrecto.');
-//         return false;
-//     }
-//     return true;
-// }
+function validaCedula(ced) {
+    var c = ced.replace(/-/g,'');
+    var cedula = c.substr(0, c.length - 1);
+    var verificador = c.substr(c.length - 1, 1);
+    var suma = 0;
+    var cedulaValida = false;
+    if(ced.length < 11) { return false; }
+    for (i=0; i < cedula.length; i++) {
+        mod = "";
+        if((i % 2) == 0){mod = 1} else {mod = 2}
+        res = cedula.substr(i,1) * mod;
+        if (res > 9) {
+            res = res.toString();
+            uno = res.substr(0,1);
+            dos = res.substr(1,1);
+            res = eval(uno) + eval(dos);
+        }
+        suma += eval(res);
+    }
+    el_numero = (10 - (suma % 10)) % 10;
+    if (el_numero == verificador && cedula.substr(0,3) != "000") {
+        cedulaValida = true;
+    }
+    else   {
+        cedulaValida = false;
+    }
+    return cedulaValida;
+}
 
 $('#agregarCapacitacion').click( function () {
     $('#capacitacion').clone().find('input:text').val("").end().appendTo('#capacitaciones');
@@ -36,43 +36,50 @@ $('#agregarIdioma').click( function () {
 
 });
 $('#agregarExperiencia').click( function () {
-
-    $('#experienciaLaboral').append("<label for='nombreEmpresa'>Empresa</label>\n" +
-                                    "<input type='text' name='nombreEmpresa[]' class='form-control' placeholder='Nombre de la Empresa'>"+
-                                    "<div class='row'><div class='col'><label for='posicion'>Posicion</label>" +
-                                    "<input type='text' name='posicion[]' class='form-control' placeholder='Posicion'> </div>" +
-                                    "<div class='col'><label for='salario'>Salario</label>" +
-                                    "<input type='number' name='salario[]' class='form-control' placeholder='Salario'></div></div>" +
-                                    "<div class='row'><div class='col'><label for='desde'>Desde</label>" +
-                                    "<input type='date' class='form-control' name='fechaDesde[]'></div>" +
-                                    "<div class='col'><label for='hasta'>Hasta</label>" +
-                                    "<input type='date' name='fechaHasta[]' class='form-control'></div></div>");
+    $('#experienciaLaboral').clone().find('input:text').val("").end().appendTo('#experienciasLaborales');
 });
-$('#candidato').submit(function (event) {
-    event.preventDefault();
 
-    // if(!validarPuesto()) return;
+$('#candidato').submit(function (event) {
+    var foo = $('.fecha-desde').siblings('.fecha-hasta').val();
+    console.log(foo);
+    return false;
+    event.preventDefault();
+    if($('#nombre').val().trim() == null ||$('#nombre').val().trim() == '') {
+        alert('entrot');
+        $('#nombre').addClass('form-control-danger');
+        $('#divDanger').addClass('has-danger');
+        $('.alert').show();
+        $('#message').text('Error en el nombre.');
+        return false;
+    }
+
+    if(!validaCedula($('#cedula').val())) {
+        $('#cedula').addClass('form-control-danger');
+        $('#divDanger').addClass('has-danger');
+        $('.alert').show();
+        $('#message').text('Cedula invalida');
+        return false;
+    }
+
+    if($)
 
     $.ajax({
         method: "POST",
         url: "/candidatos",
         data: $("#candidato").serialize()
     }).done(function( data ) {
-        // location.href = '/puestos';
+
+        $('html,body').scrollTop(0);
+        if(data.status == 'success') {
+            $('#divDanger').addClass('has-danger');
+            $('#alert').removeClass('alert-danger').addClass('alert-success');
+            $('.alert').show();
+            $('#message').text('Su solictud fue enviada correctamente');
+
+            window.setTimeout(function(){
+                location.href = '/';
+            }, 3000);
+        }
+
     });
-});
-
-$('#puestoEditar').submit(function (event) {
-    event.preventDefault();
-
-    if(!validarPuesto()) return;
-
-    $.ajax({
-        method: "PUT",
-        url: "/puestos/"+$('#puestoID').val(),
-        data: $("#puestoEditar").serialize()
-    }).done(function( data ) {
-        location.href = '/puestos';
-    });
-
 });

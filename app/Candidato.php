@@ -10,6 +10,26 @@ class Candidato extends Model
 
     public function idiomas()
     {
-        return $this->belongsToMany('App\Idioma', 'candidato_idioma')->withPivot(['idioma_id', 'candidato_id', 'nivel']);
+        return $this->belongsToMany('App\Idioma', 'candidato_idioma')->withPivot('nivel');
+    }
+
+    public function competencias()
+    {
+        return $this->belongsToMany('App\Competencia', 'candidato_competencia');
+    }
+
+    public function capacitaciones()
+    {
+        return $this->hasMany('App\Capacitacion');
+    }
+
+    public function experiencias()
+    {
+        return $this->hasMany('App\Experiencia');
+    }
+
+    public function puesto()
+    {
+        return $this->belongsTo('App\Puesto');
     }
 }

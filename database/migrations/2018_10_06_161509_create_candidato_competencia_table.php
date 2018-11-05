@@ -15,6 +15,8 @@ class CreateCandidatoCompetenciaTable extends Migration
     {
         Schema::create('candidato_competencia', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('candidato_id');
+            $table->unsignedInteger('competencia_id');
             $table->timestamps();
         });
     }

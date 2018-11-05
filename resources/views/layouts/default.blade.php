@@ -21,7 +21,7 @@
 <div class="wrapper ">
 
     <div class="main-panel">
-        {{--@if(Auth::user() != null && Auth::user()->role == 'admin')--}}
+        @if(Auth::user() != null)
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " data-color="blue">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
@@ -39,8 +39,8 @@
                 <div class="collapse navbar-collapse justify-content-end">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#pablo">
-                                <i class="tim-icons icon-bell-55"></i>  Notifications
+                            <a class="nav-link" href="logout">
+                                  Logout
                             </a>
                         </li>
                         <!-- your navbar here -->
@@ -68,7 +68,7 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">
+                        <a class="nav-link" href="/dashboard">
                             <i class="tim-icons icon-chart-pie-36"></i>
                             <p>Dashboard</p>
                         </a>
@@ -91,12 +91,17 @@
                             <p>Puestos</p>
                         </a>
                     </li>
-
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/departamentos" id="departamentoslink">
+                            <i class="tim-icons icon-paper"></i>
+                            <p>Departamentos</p>
+                        </a>
+                    </li>
                     <!-- your sidebar here -->
                 </ul>
             </div>
         </div>
-        {{--@endif--}}
+        @endif
         <div class="content">
             <div class="container-fluid">
                 <!-- your content here -->

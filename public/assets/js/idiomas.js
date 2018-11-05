@@ -23,6 +23,7 @@ $("#idiomaNuevo").submit(function(event){
 
     posting.done(function( data ) {
        if(data.status == 'error') {
+           $('.alert').removeClass('alert-danger').addClass('alert-')
            $('.alert').show();
            $('#message').text(data.message);
            return false;
