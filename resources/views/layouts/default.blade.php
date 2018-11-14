@@ -97,6 +97,12 @@
                             <p>Departamentos</p>
                         </a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/empleados" id="empleadoslink">
+                            <i class="tim-icons icon-paper"></i>
+                            <p>Empleados</p>
+                        </a>
+                    </li>
                     <!-- your sidebar here -->
                 </ul>
             </div>

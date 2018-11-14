@@ -23,4 +23,9 @@ class Puesto extends Model
     {
         return $this->hasMany('App\Candidato');
     }
+
+    public function empleados()
+    {
+        return $this->hasMany('App\Empleado');
+    }
 }

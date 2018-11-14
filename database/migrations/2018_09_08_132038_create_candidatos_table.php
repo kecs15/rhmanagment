@@ -18,6 +18,7 @@ class CreateCandidatosTable extends Migration
             $table->string('nombre');
             $table->string('cedula');
             $table->string('estado')->default('Pendiente');
+            $table->string('recomendado');
             $table->double('salario_aspira',8, 2);
             $table->unsignedInteger('puesto_id');
             $table->timestamps();

@@ -21,12 +21,16 @@
                                 </div>
                                 <div class="col" id="divDangerSalario">
                                     <label for="nombre">Salario al que aspira</label>
-                                    <input type="number" class="form-control" id="nombre" placeholder="Salario aspirante" name="salarioAspira">
+                                    <input type="number" class="form-control" id="salario" placeholder="Salario aspirante" name="salarioAspira">
+                                </div>
+                                <div class="col" id="divDangerRecomendacion">
+                                    <label for="nombre">Recomendado por</label>
+                                    <input type="text" class="form-control" id="recomendado" placeholder="Recomendado por" name="recomendado">
                                 </div>
                             </div>
                             <div class="form-control form-group" id="idiomas">
                                 <h5 class="card-title">Idiomas</h5>
-                                <button type="button" class="btn btn-info animation-on-hover" id="agregarIdioma">Agregar</button>
+                                <button type="button" class="btn btn-info animation-on-hover" id="agregarIdioma">Añadir Idioma</button>
                                 <div class="row" id="idiomaDivRow">
                                     <div class="col">
                                         <label for="idioma">Idioma</label>
@@ -61,7 +65,7 @@
                             </div>
                             <div class="form-group form-control" id="capacitaciones">
                                 <h5 class="card-title">Capacitaciones</h5>
-                                <button type="button" class="btn btn-info animation-on-hover" id="agregarCapacitacion">Agregar</button>
+                                <button type="button" class="btn btn-info animation-on-hover" id="agregarCapacitacion">Añadir Capacitacion</button>
                                 <div id="capacitacion" class="form-control">
                                     <div class="row">
                                         <div class="col">
@@ -95,7 +99,7 @@
                             </div>
                             <div class="form-group form-control" id="experienciasLaborales">
                                 <h5 class="card-title">Experiencia Laboral</h5>
-                                <button type="button" class="btn btn-info animation-on-hover" id="agregarExperiencia">Agregar Experiencia</button>
+                                <button type="button" class="btn btn-info animation-on-hover" id="agregarExperiencia">Añadir Experiencia</button>
                                 <div id="experienciaLaboral" class="form-control">
                                     <div class="form-group" id="divDangerEmpresa">
                                         <label for="nombreEmpresa">Empresa</label>
@@ -114,11 +118,11 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="desde">Desde</label>
-                                            <input type="date" class="form-control" name="experienciaFechasDesde[]">
+                                            <input type="date" class="form-control fecha-desde" name="experienciaFechasDesde[]">
                                         </div>
                                         <div class="col">
                                             <label for="salario">Hasta</label>
-                                            <input type="date" class="form-control" name="experienciasFechasHaste[]">
+                                            <input type="date" class="form-control fecha-hasta" name="experienciasFechasHaste[]">
                                         </div>
                                     </div>
                                 </div>

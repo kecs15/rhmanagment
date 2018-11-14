@@ -26,7 +26,11 @@
                                     <td>{{$candidato->id}}</td>
                                     <td>{{$candidato->nombre}}</td>
                                     <td>{{$candidato->estado}}</td>
-                                    <td>{{$candidato->puesto->nombre}}</td>
+                                    @if(isset($candidato->puesto_nombre))
+                                        <td>{{$candidato->puesto_nombre}}</td>
+                                    @else
+                                        <td>{{$candidato->puesto->nombre}}</td>
+                                    @endif
                                     <td class="td-actions text-right">
                                         <a href="/candidatos/{{$candidato->id}}">
                                             <button id="{{$candidato->id}}" type="button" rel="tooltip" class="btn btn-info btn-sm btn-icon">
@@ -37,14 +41,35 @@
                                 </tr>
                                 <tr>
                             @endforeach
-                            @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
         </div>
+        <div class="col-lg-3 card-chart">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Busqueda</h4>
+                    <form id="buscarCandidatos" method="POST" action="/find">
+                        <div class="form-group">
+                            <label for="nombre">Nombre idioma</label>
+                            <select class="form-control" id="criterio" name="criterio">
+                                <option value="idiomas">Idioma</option>
+                                <option value="competencias">Competencia</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="divDanger">
+                            <label for="valor">Valor</label>
+                            <input type="text" class="form-control" name="valor" id="valor" placeholder="Valor a buscar" required>
+                        </div>
+                        <button type="submit" class="btn btn-info animation-on-hover">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 @endsection
 @section('custom_js')
-    <script src="/../assets/js/idiomas.js" type="text/javascript"></script>
+    <script src="/../assets/js/candidatos.js" type="text/javascript"></script>
 @endsection

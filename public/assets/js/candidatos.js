@@ -40,16 +40,28 @@ $('#agregarExperiencia').click( function () {
 });
 
 $('#candidato').submit(function (event) {
-    var foo = $('.fecha-desde').siblings('.fecha-hasta').val();
-    console.log(foo);
-    return false;
     event.preventDefault();
+    $('.fecha-desde').each(function(){
+        var desde = new Date($(this).val());
+        var hasta =  new Date ($(this).closest('.row').find('.fecha-hasta').eq(0).val());
+        if (!isNaN(desde.getTime()) && !isNaN(hasta.getTime())) {
+            if(desde.getTime() > hasta.getTime()){
+                $('#divDanger').addClass('has-danger');
+                $('.alert').show();
+                $('#message').text('Error en las fechas.');
+                $('html,body').scrollTop(0);
+                return false;
+            }
+        }
+    });
+
+
     if($('#nombre').val().trim() == null ||$('#nombre').val().trim() == '') {
-        alert('entrot');
         $('#nombre').addClass('form-control-danger');
         $('#divDanger').addClass('has-danger');
         $('.alert').show();
         $('#message').text('Error en el nombre.');
+        $('html,body').scrollTop(0);
         return false;
     }
 
@@ -58,6 +70,7 @@ $('#candidato').submit(function (event) {
         $('#divDanger').addClass('has-danger');
         $('.alert').show();
         $('#message').text('Cedula invalida');
+        $('html,body').scrollTop(0);
         return false;
     }
 
@@ -83,3 +96,56 @@ $('#candidato').submit(function (event) {
 
     });
 });
+
+$('#candidatoEstado').submit(function (event) {
+    event.preventDefault();
+    if($('#estado').val() == 'Pendiente') return false;
+    if($('#estado').val() == 'Contratado')
+    {
+        if($('#salario').val() == null || $('#salario').val() <= 0)
+        {
+            $('#salario').addClass('form-control-danger');
+            $('#divDanger').addClass('has-danger');
+            $('.alert').show();
+            $('#message').text('Salario invialido');
+            return false;
+        }
+    }
+    $.ajax({
+        method: "PUT",
+        url: "/candidatos/"+$("#candidatoID").val(),
+        data: $("#candidatoEstado").serialize()
+    }).done(function( data ) {
+            if(data.status = 'hired')
+            {
+                $('#alert').removeClass('alert-danger').addClass('alert-success');
+                $('.alert').show();
+                $('#message').text(data.message);
+                window.setTimeout(function(){
+                    location.href = '/dashboard';
+                }, 3000);
+            }else if(data.status == 'rejected'){
+                $('#alert').removeClass('alert-success').addClass('alert-danger');
+                $('.alert').show();
+                $('#message').text(data.message);
+                window.setTimeout(function(){
+                    location.href = '/dashboard';
+                }, 3000);
+            }
+    });
+});
+
+// $('#buscarCandidatos').submit(function (event) {
+//
+//    event.preventDefault();
+//    var valor = $('#valor').val().trim();
+//    if(valor == null || valor == '') {
+//        $('#valor').addClass('form-control-danger');
+//        $('#divDanger').addClass('has-danger');
+//        $('.alert').show();
+//        $('#message').text('Debe introducir un valor a buscar.');
+//        return false;
+//    }
+//
+//     var posting = $.post( '/find', { criterio: $('#criterio').val(), valor: valor } );
+// });

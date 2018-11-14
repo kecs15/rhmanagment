@@ -8,6 +8,7 @@ use App\Idioma;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Puesto;
+use App\Empleado;
 
 class CandidatosController extends Controller
 {
@@ -48,6 +49,7 @@ class CandidatosController extends Controller
         $candidato->cedula = $request->cedula;
         $candidato->salario_aspira = $request->salarioAspira;
         $candidato->puesto_id = $request->puesto_id;
+        $candidato->recomendado = $request->recomendado;
         $candidato->save();
 
         foreach($request->idiomas as $k => $idioma)
@@ -111,8 +113,9 @@ class CandidatosController extends Controller
     public function show($id)
     {
         $candidato = Candidato::find($id);
-        //var_dump($candidato->idiomas[0]->nombre);die;
-        return view('candidato.show')->with(['candidato' => $candidato]);
+        $puestos = new Puesto();
+//        var_dump($candidato->idiomas[0]->pivot->nivel);die;
+        return view('candidato.show')->with(['candidato' => $candidato, 'puestos' => $puestos->where('estado', 1)->get()]);
     }
 
     /**
@@ -135,7 +138,23 @@ class CandidatosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $candidato = Candidato::find($id);
+
+        if($request->estado == 'Contratado') {
+            $empleado = new Empleado();
+            $empleado->nombre = $candidato->nombre;
+            $empleado->cedula = $candidato->cedula;
+            $empleado->salario = $request->salario;
+            $empleado->puesto_id = $request->puesto;
+            $candidato->estado = $request->estado;
+            $candidato->save();
+            $empleado->save();
+            return response()->json(['status' => 'hired', 'message' => 'El emplado ha sido contratado.']);
+        }elseif ($request->estado == 'Rechazado') {
+            $candidato->estado = $request->estado;
+            $candidato->save();
+            return response()->json(['status' => 'rejected', 'message' => 'El emplado ha sido rechazado.']);
+        }
     }
 
     /**
@@ -147,5 +166,33 @@ class CandidatosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function find(Request $request)
+    {
+        $criterio =  null;
+
+        switch ($request->criterio) {
+            case 'idiomas':
+                $criterio = 'idiomas.nombre';
+                break;
+
+            default:
+                $criterio = 'competencias.descripcion';
+                break;
+        }
+
+        $candidatos = DB::table('candidatos')
+                                ->join('puestos', 'candidatos.puesto_id', '=', 'puestos.id')
+                                ->join('candidato_idioma', 'candidatos.id', '=', 'candidato_idioma.candidato_id')
+                                ->join('idiomas', 'candidato_idioma.idioma_id', '=', 'idiomas.id')
+                                ->join('candidato_competencia', 'candidatos.id', '=', 'candidato_competencia.candidato_id')
+                                ->join('competencias', 'candidato_competencia.competencia_id', '=', 'competencias.id')
+                                ->select('candidatos.*', 'puestos.nombre as puesto_nombre')
+                                ->where($criterio, '=', $request->valor)
+                                ->groupBy('candidatos.id')
+                                ->get();
+
+        return view('candidato.index')->with(['candidatos' => $candidatos]);
     }
 }

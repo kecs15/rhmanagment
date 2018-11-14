@@ -17,6 +17,8 @@ class CreateEmpleadosTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('cedula');
+            $table->unsignedInteger('candidato_id');
+            $table->string('estado')->defaul('activo');
             $table->double('salario', 8, 2);
             $table->unsignedInteger('puesto_id');
             $table->timestamps();

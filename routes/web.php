@@ -17,6 +17,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('departamentos', 'DepartamentosController');
     Route::resource('puestos', 'PuestosController');
     Route::get('/dashboard', 'CandidatosController@index');
+    Route::resource('empleados', 'EmpleadosController');
+    Route::post('/find', 'CandidatosController@find');
 });
 
 Route::resource('candidatos', 'CandidatosController')->except([
@@ -26,11 +28,6 @@ Route::get('/candidatos/{puestoID}/create', 'CandidatosController@create');
 
 Route::get('/', 'PuestosController@puestosDisponibles');
 
-//Route::get('/idiomas', 'IdiomaController@index');
-//Route::get('/idiomas/edit/{id}', 'IdiomaController@edit');
-//
-//Route::post('idiomas/store', 'IdiomaController@store');
-//Route::post('idiomas/update/{id}', 'IdiomaController@update');
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 
