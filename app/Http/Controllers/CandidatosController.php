@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Candidato;
 use App\Competencia;
+use App\Exports\CandidatosExport;
 use App\Idioma;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Puesto;
 use App\Empleado;
+use Maatwebsite\Excel\Facades\Excel;
+use DB;
+
 
 class CandidatosController extends Controller
 {
@@ -146,6 +150,8 @@ class CandidatosController extends Controller
             $empleado->cedula = $candidato->cedula;
             $empleado->salario = $request->salario;
             $empleado->puesto_id = $request->puesto;
+            $empleado->candidato_id = $candidato->id;
+            $empleado->estado ='Activo';
             $candidato->estado = $request->estado;
             $candidato->save();
             $empleado->save();
@@ -194,5 +200,10 @@ class CandidatosController extends Controller
                                 ->get();
 
         return view('candidato.index')->with(['candidatos' => $candidatos]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new CandidatosExport, 'candidatos.xlsx');
     }
 }

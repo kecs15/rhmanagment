@@ -135,6 +135,10 @@ $('#candidatoEstado').submit(function (event) {
     });
 });
 
+$('#exportar').click( function(){
+    var getting = $.get( '/export');
+
+});
 // $('#buscarCandidatos').submit(function (event) {
 //
 //    event.preventDefault();

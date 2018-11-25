@@ -18,7 +18,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('puestos', 'PuestosController');
     Route::get('/dashboard', 'CandidatosController@index');
     Route::resource('empleados', 'EmpleadosController');
-    Route::post('/find', 'CandidatosController@find');
+    Route::post('/candidatos/find', 'CandidatosController@find');
+    Route::get('/candidatos/export', 'CandidatosController@export');
 });
 
 Route::resource('candidatos', 'CandidatosController')->except([

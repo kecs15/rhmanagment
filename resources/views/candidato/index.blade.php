@@ -50,7 +50,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Busqueda</h4>
-                    <form id="buscarCandidatos" method="POST" action="/find">
+                    <form id="buscarCandidatos" method="POST" action="/candidatos/find">
                         <div class="form-group">
                             <label for="nombre">Nombre idioma</label>
                             <select class="form-control" id="criterio" name="criterio">
@@ -63,6 +63,11 @@
                             <input type="text" class="form-control" name="valor" id="valor" placeholder="Valor a buscar" required>
                         </div>
                         <button type="submit" class="btn btn-info animation-on-hover">Buscar</button>
+                        <a href="/candidatos/export">
+                            <button id="{{$candidato->id}}" type="button" rel="tooltip" class="btn btn-info animation-on-hover">
+                                Exportar
+                            </button>
+                        </a>
                     </form>
                 </div>
             </div>
